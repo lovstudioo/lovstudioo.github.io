@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lov Studio — Mat Pilates · Barre · Aerial Yoga · Ballet · Danza Árabe · Ritmos Latinos</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#1A1714;--rose:#C9A99A;--rose-lt:#E8D5CC;--rose-dk:#A8827A;
+  --cream:#F5EFE8;--sage:#8A9E8C;--white:#FDFAF7;--text:#3A3330;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--text);font-family:'Inter',sans-serif;font-weight:300;font-size:15px;line-height:1.7;overflow-x:hidden}
+
+/* ═══════════════════════════════════════
+   PAGE SYSTEM — only one page visible at a time
+═══════════════════════════════════════ */
+.page{display:none;min-height:100vh}
+.page.active{display:block}
+
+/* ═══════════════════════════════════════
+   NAV
+═══════════════════════════════════════ */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1.3rem 3rem;background:rgba(253,250,247,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--rose-lt)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;letter-spacing:0.08em;color:var(--black);text-decoration:none;cursor:pointer}
+.nav-links{display:flex;gap:0.2rem;list-style:none;align-items:center}
+.nav-links li a,.nav-links li button{background:none;border:none;font-family:'Inter',sans-serif;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text);text-decoration:none;padding:0.5rem 0.9rem;border-radius:2px;cursor:pointer;transition:background 0.2s,color 0.2s;display:block}
+.nav-links li a:hover,.nav-links li button:hover{background:var(--cream);color:var(--rose)}
+.nav-links li a.active,.nav-links li button.active{background:var(--rose);color:var(--white)}
+.nav-cta-btn{background:var(--rose)!important;color:var(--white)!important}
+.nav-cta-btn:hover{background:var(--rose-dk)!important}
+
+/* ═══════════════════════════════════════
+   FLOATING BUTTONS
+═══════════════════════════════════════ */
+.fab-group{position:fixed;bottom:2rem;right:2rem;z-index:300;display:flex;flex-direction:column;gap:0.6rem;align-items:flex-end}
+.fab{display:flex;align-items:center;gap:0.6rem;padding:0.65rem 1.1rem;border-radius:30px;font-size:0.68rem;letter-spacing:0.13em;text-transform:uppercase;font-family:'Inter',sans-serif;font-weight:400;cursor:pointer;border:none;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 20px rgba(26,23,20,0.18);text-decoration:none}
+.fab:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(26,23,20,0.22)}
+.fab-rose{background:var(--rose);color:var(--white)}
+.fab-black{background:var(--black);color:var(--white)}
+.fab-white{background:var(--white);color:var(--text);box-shadow:0 4px 20px rgba(26,23,20,0.1);border:1px solid var(--rose-lt)}
+
+/* ═══════════════════════════════════════
+   SHARED COMPONENTS
+═══════════════════════════════════════ */
+.container{max-width:1200px;margin:0 auto;padding:0 3rem}
+.section-label{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--rose);margin-bottom:1rem}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:300;line-height:1.1;color:var(--black);margin-bottom:2rem}
+.section-title em{font-style:italic;color:var(--rose)}
+.btn-primary{display:inline-block;padding:0.85rem 2rem;background:var(--rose);color:var(--white);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:background 0.3s,transform 0.2s;border:none;cursor:pointer;font-family:'Inter',sans-serif}
+.btn-primary:hover{background:var(--rose-dk);transform:translateY(-1px)}
+.btn-outline{display:inline-block;padding:0.85rem 2rem;border:1px solid var(--rose-lt);color:var(--text);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:border-color 0.3s;cursor:pointer;font-family:'Inter',sans-serif;background:none}
+.btn-outline:hover{border-color:var(--rose);color:var(--rose)}
+.page-top{padding-top:80px}
+
+/* reveal animation */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ═══════════════════════════════════════
+   PAGE 1 — HOME (HERO)
+═══════════════════════════════════════ */
+.hero{min-height:100vh;background:linear-gradient(155deg,var(--black) 0%,#2C2220 45%,#3D2E2A 70%,#4A3530 100%);display:flex;flex-direction:column;justify-content:center;padding:0 3rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-20%;right:-10%;width:60%;height:130%;background:radial-gradient(ellipse,rgba(201,169,154,0.11) 0%,transparent 70%);pointer-events:none}
+.hero-eyebrow{font-size:0.68rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--rose);margin-bottom:2rem;opacity:0;animation:fadeUp 0.9s 0.3s forwards}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(4rem,10vw,9rem);font-weight:300;font-style:italic;line-height:0.92;color:var(--white);max-width:800px;opacity:0;animation:fadeUp 1s 0.5s forwards}
+.hero-title em{font-style:normal;color:var(--rose);display:block}
+.hero-sub{margin-top:2.5rem;font-size:0.83rem;letter-spacing:0.1em;color:rgba(253,250,247,0.5);max-width:400px;line-height:2;opacity:0;animation:fadeUp 1s 0.75s forwards}
+.hero-actions{margin-top:3.5rem;display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp 1s 1s forwards}
+.hero-btn-primary{display:inline-block;padding:0.9rem 2.2rem;background:var(--rose);color:var(--white);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;border-radius:2px;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.3s}
+.hero-btn-primary:hover{background:var(--rose-dk)}
+.hero-btn-ghost{display:inline-block;padding:0.9rem 2.2rem;border:1px solid rgba(253,250,247,0.75);background:rgba(0,0,0,0.25);color:var(--white);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;border-radius:2px;cursor:pointer;font-family:'Inter',sans-serif;transition:border-color 0.3s,background 0.3s}
+.hero-btn-ghost:hover{border-color:var(--rose)}
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;opacity:0;animation:fadeUp 1s 1.4s forwards}
+.hero-scroll span{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(253,250,247,0.3)}
+.scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,rgba(201,169,154,0.5),transparent);animation:scrollPulse 2s infinite}
+
+/* quick links */
+.quick-links{background:var(--cream);border-top:1px solid var(--rose-lt)}
+.quick-links-inner{display:flex}
+.ql-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.45rem;padding:1.8rem 0.5rem;text-decoration:none;border-right:1px solid var(--rose-lt);transition:background 0.2s;cursor:pointer;background:none;border-top:none;border-bottom:none;border-left:none;font-family:'Inter',sans-serif}
+.ql-item:last-child{border-right:none}
+.ql-item:hover{background:var(--rose-lt)}
+.ql-icon{font-size:1.2rem}
+.ql-label{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text)}
+
+/* philosophy */
+.philosophy{padding:7rem 0;background:var(--white)}
+.philosophy-inner{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.philosophy-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:300;line-height:1.15;color:var(--black);margin-bottom:1.8rem}
+.philosophy-text h2 em{font-style:italic;color:var(--rose)}
+.philosophy-text p{color:#6B5E58;font-size:0.92rem;line-height:1.9;margin-bottom:1.2rem}
+.philosophy-visual{position:relative;height:420px}
+.phil-card{position:absolute;padding:2.2rem;border-radius:4px;box-shadow:0 20px 60px rgba(26,23,20,0.08)}
+.phil-card-1{top:0;left:0;width:60%;height:70%;background:var(--cream)}
+.phil-card-2{bottom:-10%;right:-5%;width:60%;height:55%;background:var(--black)}
+.phil-num{font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:300;line-height:1;color:var(--rose-lt);margin-bottom:0.4rem}
+.phil-card-2 .phil-num{color:var(--rose)}
+.phil-card-label{font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--rose);margin-bottom:0.8rem}
+.phil-card-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--black);margin-bottom:0.4rem}
+.phil-card-2 .phil-card-title{color:var(--white)}
+.phil-card-desc{font-size:0.8rem;color:#9A8A84;line-height:1.7}
+.phil-card-2 .phil-card-desc{color:rgba(253,250,247,0.42)}
+
+/* marquee */
+.marquee-strip{background:var(--black);padding:2.5rem 0;overflow:hidden}
+.marquee-inner{display:flex;animation:marquee 35s linear infinite;white-space:nowrap}
+.marquee-item{display:inline-flex;align-items:center;gap:2rem;padding:0 3rem;flex-shrink:0}
+.marquee-item span{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-style:italic;color:rgba(253,250,247,0.17)}
+.marquee-dot{width:4px;height:4px;border-radius:50%;background:var(--rose);flex-shrink:0}
+
+/* home cta */
+.home-cta{padding:7rem 0;background:var(--rose);text-align:center}
+.home-cta h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:300;font-style:italic;color:var(--white);margin-bottom:1.2rem;line-height:1.1}
+.home-cta p{font-size:0.82rem;letter-spacing:0.1em;color:rgba(253,250,247,0.72);text-transform:uppercase;margin-bottom:2.5rem}
+.btn-white{display:inline-block;padding:0.9rem 2.2rem;background:var(--white);color:var(--rose);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;border-radius:2px;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s}
+.btn-white:hover{background:var(--cream)}
+
+/* ═══════════════════════════════════════
+   PAGE 2 — SCHEDULE
+═══════════════════════════════════════ */
+.schedule-page{padding:7rem 0 5rem}
+.schedule-intro{max-width:600px;margin-bottom:4rem}
+.week-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;background:var(--rose-lt);border-radius:4px;overflow:hidden}
+.day-col{background:var(--white)}
+.day-header{background:var(--black);color:var(--white);text-align:center;padding:0.8rem 0.3rem}
+.day-name{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--rose)}
+.day-short{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;color:var(--white);margin-top:2px}
+.day-classes{padding:0.4rem;display:flex;flex-direction:column;gap:0.35rem;min-height:300px}
+.class-slot{padding:0.55rem 0.45rem;border-radius:2px;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s}
+.class-slot:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(26,23,20,0.1)}
+/* Unified pastel slot color — all classes same */
+.cs-pilates,.cs-barre,.cs-aerial,.cs-ballet,.cs-bellydance,.cs-latinos,.cs-kids{background:#F5EFF8;border-left:2px solid #C9A99A}
+
+.cs-time{font-size:0.58rem;letter-spacing:0.08em;color:#9A8A84;margin-bottom:1px}
+.cs-name{font-size:0.68rem;font-weight:400;color:var(--black);line-height:1.3}
+.cs-level{font-size:0.58rem;color:#9A8A84}
+.schedule-legend{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem;justify-content:center}
+.legend-item{display:flex;align-items:center;gap:0.5rem;font-size:0.7rem;color:#6B5E58}
+.legend-dot{width:9px;height:9px;border-radius:50%}
+.schedule-note-box{background:var(--cream);border-left:2px solid var(--rose);padding:1rem 1.5rem;border-radius:0 4px 4px 0;margin-top:2.5rem;font-size:0.82rem;color:#6B5E58}
+
+/* ═══════════════════════════════════════
+   PAGE 3 — CLASSES
+═══════════════════════════════════════ */
+.classes-page{padding:7rem 0 5rem}
+.classes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:4rem}
+.class-card{background:var(--white);border:1px solid var(--rose-lt);border-radius:2px;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s}
+.class-card:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(26,23,20,0.1)}
+.class-hero-bar{height:180px;position:relative;overflow:hidden}
+.class-hero-bg{position:absolute;inset:0;transition:transform 0.5s}
+.class-card:hover .class-hero-bg{transform:scale(1.05)}
+.bg-pilates{background:linear-gradient(160deg,#D4C4BC 0%,#C9A99A 60%,#8A7A74 100%)}
+.bg-barre{background:linear-gradient(160deg,#8A9E8C 0%,#6B8570 60%,#4A5E4C 100%)}
+.bg-aerial{background:linear-gradient(160deg,#2C2220 0%,#4A3530 60%,#6B5248 100%)}
+.bg-ballet{background:linear-gradient(160deg,#D4C4DC 0%,#9A8AB0 60%,#6A5A80 100%)}
+.bg-bellydance{background:linear-gradient(160deg,#DCD0A0 0%,#C0A870 60%,#806040 100%)}
+.bg-latinos{background:linear-gradient(160deg,#B0C4D8 0%,#6A8FAA 60%,#3A5F7A 100%)}
+.class-num{position:absolute;top:1rem;right:1rem;font-family:'Cormorant Garamond',serif;font-size:0.72rem;color:rgba(253,250,247,0.32);letter-spacing:0.1em}
+.class-body{padding:1.8rem}
+.class-tag{font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--rose);margin-bottom:0.5rem}
+.class-name{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:300;color:var(--black);margin-bottom:0.7rem;line-height:1.1}
+.class-desc{font-size:0.8rem;color:#6B5E58;line-height:1.8;margin-bottom:1.3rem}
+.class-benefits{list-style:none;margin-bottom:1.5rem;display:flex;flex-direction:column;gap:0.45rem}
+.class-benefits li{font-size:0.78rem;color:#7A6A64;display:flex;align-items:flex-start;gap:0.6rem;line-height:1.5}
+.class-benefits li::before{content:'';display:inline-block;width:12px;height:1px;background:var(--rose);margin-top:0.55rem;flex-shrink:0}
+.class-pricing-box{background:var(--cream);padding:1rem 1.2rem;border-radius:2px;margin-bottom:1.3rem}
+.pricing-label{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);margin-bottom:0.5rem}
+.pricing-row{display:flex;justify-content:space-between;align-items:center;padding:0.28rem 0;border-bottom:1px solid var(--rose-lt)}
+.pricing-row:last-child{border-bottom:none}
+.pricing-name{font-size:0.76rem;color:var(--text)}
+.pricing-amount{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--black)}
+.class-times-box{margin-bottom:1.3rem}
+.times-label{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);margin-bottom:0.5rem}
+.times-wrap{display:flex;flex-wrap:wrap;gap:0.35rem}
+.time-badge{font-size:0.68rem;background:var(--white);border:1px solid var(--rose-lt);padding:0.22rem 0.55rem;border-radius:2px;color:var(--text)}
+.media-area{margin-bottom:1.5rem}
+.media-label{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);margin-bottom:0.5rem}
+.media-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.4rem}
+.media-slot{aspect-ratio:1;background:var(--cream);border-radius:2px;border:1px dashed var(--rose-lt);display:flex;align-items:center;justify-content:center;font-size:0.6rem;letter-spacing:0.08em;color:#B0A09A;text-transform:uppercase;overflow:hidden}
+.media-slot img,.media-slot video{width:100%;height:100%;object-fit:cover}
+.class-cta-btn{display:block;width:100%;text-align:center;padding:0.8rem;background:var(--rose);color:var(--white);font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:background 0.3s;border:none;cursor:pointer;font-family:'Inter',sans-serif}
+.class-cta-btn:hover{background:var(--rose-dk)}
+
+/* ═══════════════════════════════════════
+   PAGE 4 — MEMBERSHIPS
+═══════════════════════════════════════ */
+.membership-page{padding:7rem 0 5rem;background:var(--black);min-height:100vh}
+.membership-page .section-label{color:var(--rose)}
+.membership-page .section-title{color:var(--white)}
+.membership-table{width:100%;border-collapse:collapse;margin:3rem 0}
+.membership-table th{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);padding:0 1.5rem 1rem;text-align:center;font-weight:400}
+.membership-table th:first-child{text-align:left}
+.membership-table td{padding:1.1rem 1.5rem;border-top:1px solid rgba(201,169,154,0.1);font-size:0.84rem;color:rgba(253,250,247,0.55);text-align:center;vertical-align:middle}
+.membership-table td:first-child{text-align:left;color:rgba(253,250,247,0.85)}
+.membership-table tr:hover td{background:rgba(201,169,154,0.04)}
+.price-val{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--white)}
+.price-val small{font-family:'Inter',sans-serif;font-size:0.68rem;color:rgba(253,250,247,0.38);margin-left:2px}
+.membership-notes{margin-top:2.5rem;display:flex;gap:2rem;flex-wrap:wrap}
+.mem-note{flex:1;min-width:200px;background:rgba(201,169,154,0.06);border:1px solid rgba(201,169,154,0.12);padding:1.5rem;border-radius:4px}
+.mem-note-icon{font-size:1.4rem;margin-bottom:0.8rem}
+.mem-note-title{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--white);margin-bottom:0.4rem}
+.mem-note-text{font-size:0.78rem;color:rgba(253,250,247,0.42);line-height:1.7}
+.membership-cta-row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:3rem}
+.btn-rose{display:inline-block;padding:0.9rem 2.2rem;background:var(--rose);color:var(--white);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;border-radius:2px;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.3s}
+.btn-rose:hover{background:var(--rose-dk)}
+.btn-outline-white{display:inline-block;padding:0.9rem 2.2rem;border:1px solid rgba(201,169,154,0.3);color:rgba(253,250,247,0.65);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;border-radius:2px;border-style:solid;cursor:pointer;font-family:'Inter',sans-serif;background:none;transition:border-color 0.3s,color 0.3s}
+.btn-outline-white:hover{border-color:var(--rose);color:var(--white)}
+
+/* ═══════════════════════════════════════
+   PAGE 5 — CONTACT / FORMS
+═══════════════════════════════════════ */
+.contact-page{padding:7rem 0 5rem}
+.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;margin-top:3rem}
+.contact-card{background:var(--cream);border-radius:4px;padding:2.5rem;display:flex;flex-direction:column;gap:1rem;transition:box-shadow 0.3s}
+.contact-card:hover{box-shadow:0 12px 40px rgba(26,23,20,0.08)}
+.contact-card-icon{font-size:2rem}
+.contact-card-label{font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--rose)}
+.contact-card-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--black);line-height:1.2}
+.contact-card-desc{font-size:0.82rem;color:#6B5E58;line-height:1.75;flex:1}
+.contact-card-btn{display:inline-block;padding:0.8rem 1.8rem;background:var(--rose);color:var(--white);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;border-radius:2px;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.3s;align-self:flex-start}
+.contact-card-btn:hover{background:var(--rose-dk)}
+.contact-card-btn-outline{background:none;border:1px solid var(--rose-lt);color:var(--text)}
+.contact-card-btn-outline:hover{border-color:var(--rose);color:var(--rose);background:none}
+.contact-info-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:4rem;padding-top:3rem;border-top:1px solid var(--rose-lt)}
+.info-item{}
+.info-label{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--rose);margin-bottom:0.5rem}
+.info-value{font-size:0.88rem;color:#6B5E58;line-height:1.75}
+
+/* ═══════════════════════════════════════
+   PAGE 6 — LOCATION
+═══════════════════════════════════════ */
+.location-page{padding:7rem 0 5rem}
+.location-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;margin-top:3rem}
+.location-detail{display:flex;gap:1.2rem;align-items:flex-start;margin-bottom:1.8rem}
+.detail-label{font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--rose);width:80px;flex-shrink:0;padding-top:2px}
+.detail-value{font-size:0.88rem;color:#6B5E58;line-height:1.75}
+.map-frame{width:100%;height:420px;border-radius:4px;border:none;filter:grayscale(15%)}
+.location-actions{display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:2rem}
+.testimonials-mini{margin-top:4rem;padding-top:3rem;border-top:1px solid var(--rose-lt)}
+.testimonials-mini h3{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;font-style:italic;color:var(--black);margin-bottom:2rem}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.testimonial{padding:2rem;border-top:2px solid var(--rose-lt)}
+.t-stars{display:flex;gap:3px;margin-bottom:1rem}
+.t-star{width:7px;height:7px;background:var(--rose);border-radius:50%}
+.t-quote{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:var(--black);line-height:1.75;margin-bottom:1.2rem}
+.t-author{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--rose)}
+
+/* ═══════════════════════════════════════
+   FOOTER (shared)
+═══════════════════════════════════════ */
+.site-footer{background:var(--black);padding:4rem 0 2.5rem;border-top:1px solid rgba(201,169,154,0.1)}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--white);margin-bottom:0.7rem}
+.footer-tagline{font-size:0.76rem;color:rgba(253,250,247,0.28);line-height:1.8;max-width:220px}
+.footer-col h4{font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--rose);margin-bottom:1.3rem}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.6rem}
+.footer-col ul button,.footer-col ul a{background:none;border:none;font-size:0.78rem;color:rgba(253,250,247,0.36);text-decoration:none;transition:color 0.3s;cursor:pointer;font-family:'Inter',sans-serif;font-weight:300;text-align:left;padding:0}
+.footer-col ul button:hover,.footer-col ul a:hover{color:var(--rose)}
+.footer-bottom{border-top:1px solid rgba(201,169,154,0.08);padding-top:1.8rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;padding-right:120px}
+.footer-copy{font-size:0.68rem;color:rgba(253,250,247,0.17)}
+.social-links{display:flex;gap:1.4rem}
+.social-links a{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(253,250,247,0.26);text-decoration:none;transition:color 0.3s}
+.social-links a:hover{color:var(--rose)}
+
+/* ═══════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scrollPulse{0%,100%{opacity:0.4}50%{opacity:1}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media(max-width:1024px){
+  .week-grid{grid-template-columns:repeat(3,1fr)}
+  .classes-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-inner{grid-template-columns:1fr 1fr}
+  .testimonials-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  nav{padding:1rem 1.2rem}
+  .nav-links{gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links li a,.nav-links li button{font-size:0.62rem;padding:0.4rem 0.6rem;letter-spacing:0.1em;white-space:nowrap}
+  .container{padding:0 1.2rem}
+  .hero{padding:0 1.2rem}
+  .philosophy-inner,.location-inner{grid-template-columns:1fr;gap:2.5rem}
+  /* Stack phil cards so neither overlaps the other */
+  .philosophy-visual{height:auto;position:static;display:flex;flex-direction:column;gap:1rem}
+  .phil-card{position:static!important;width:100%!important;height:auto!important}
+  .classes-grid,.contact-grid,.testimonials-grid{grid-template-columns:1fr}
+  .week-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-inner{grid-template-columns:1fr;gap:2rem}
+  .footer-bottom{flex-direction:column;text-align:center;padding-right:0;padding-bottom:5rem}
+  .contact-info-row{grid-template-columns:1fr}
+  .ql-item{flex:1 1 33%}
+  .fab-group{bottom:0.8rem;right:0.8rem}
+  .membership-table th:not(:first-child):not(:last-child){display:none}
+  .membership-table td:not(:first-child):not(:last-child){display:none}
+}
+/* ── MOBILE ≤480px ── */
+@media(max-width:480px){
+  /* NAV: horizontally scrollable pill tabs, no wrap */
+  nav{padding:0.75rem 1rem}
+  .nav-logo{font-size:1.15rem}
+  .nav-links{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:0;padding-bottom:1px}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links li a,.nav-links li button{font-size:0.57rem;padding:0.32rem 0.5rem;letter-spacing:0.08em;white-space:nowrap}
+
+  /* HERO */
+  .hero{padding:4.5rem 1.2rem 3rem;min-height:100svh;justify-content:center}
+  .hero-eyebrow{font-size:0.57rem;letter-spacing:0.15em;margin-bottom:1.1rem}
+  .hero-title{font-size:clamp(2.8rem,13vw,4.5rem);line-height:0.95}
+  .hero-sub{font-size:0.77rem;margin-top:1.3rem;line-height:1.85;max-width:100%}
+  .hero-actions{margin-top:1.8rem;flex-direction:column;gap:0.6rem}
+  .hero-btn-primary,.hero-btn-ghost{width:100%;text-align:center;padding:0.82rem;font-size:0.67rem;letter-spacing:0.14em}
+  .hero-scroll{display:none}
+
+  /* QUICK LINKS: 3 per row */
+  .quick-links-inner{flex-wrap:wrap}
+  .ql-item{flex:1 1 33%;padding:1rem 0.3rem;border-bottom:1px solid var(--rose-lt);border-right:none!important}
+  .ql-item:nth-child(1),.ql-item:nth-child(2),.ql-item:nth-child(4),.ql-item:nth-child(5){border-right:1px solid var(--rose-lt)!important}
+  .ql-icon{font-size:0.95rem}
+  .ql-label{font-size:0.52rem;letter-spacing:0.09em}
+
+  /* PHILOSOPHY */
+  .philosophy{padding:3rem 0}
+  .philosophy-inner{grid-template-columns:1fr;gap:2rem}
+  .philosophy-text h2{font-size:1.85rem}
+  .philosophy-text p{font-size:0.84rem}
+  /* Phil cards: stacked vertically, full width, no overlap, fully legible */
+  .philosophy-visual{height:auto;position:static;display:flex;flex-direction:column;gap:0.9rem}
+  .phil-card{position:static!important;width:100%!important;height:auto!important;padding:1.5rem}
+  .phil-num{font-size:3rem}
+  .phil-card-title{font-size:1.15rem}
+  .phil-card-desc{font-size:0.76rem}
+
+  /* MARQUEE */
+  .marquee-strip{padding:1.6rem 0}
+  .marquee-item span{font-size:1rem}
+
+  /* HOME CTA */
+  .home-cta{padding:3rem 0}
+  .home-cta h2{font-size:1.9rem}
+  .home-cta p{font-size:0.71rem}
+
+  /* SCHEDULE */
+  .schedule-page{padding:4.5rem 0 2.5rem}
+  .week-grid{grid-template-columns:1fr!important;gap:3px}
+  .day-header{display:flex;align-items:center;justify-content:space-between;padding:0.55rem 0.8rem;text-align:left}
+  .day-name{font-size:0.63rem;letter-spacing:0.13em}
+  .day-short{font-size:0.95rem;margin-top:0}
+  .day-classes{min-height:auto!important;padding:0.35rem}
+  .class-slot{padding:0.45rem 0.55rem}
+  .cs-time{font-size:0.58rem}
+  .cs-name{font-size:0.7rem}
+  .cs-level{font-size:0.56rem}
+  .schedule-note-box{font-size:0.76rem;padding:0.75rem 0.9rem}
+
+  /* CLASSES */
+  .classes-page{padding:4.5rem 0 2.5rem}
+  .classes-grid{grid-template-columns:1fr;gap:1.2rem;margin-top:1.8rem}
+  .class-hero-bar{height:145px}
+  .class-body{padding:1.3rem}
+  .class-name{font-size:1.45rem}
+  .class-desc{font-size:0.77rem}
+  .class-benefits li{font-size:0.74rem}
+  .pricing-name{font-size:0.71rem}
+  .pricing-amount{font-size:1rem}
+  .time-badge{font-size:0.62rem;padding:0.17rem 0.42rem}
+  .media-grid{gap:0.3rem}
+
+  /* MEMBERSHIP */
+  .membership-page{padding:4.5rem 0 2.5rem}
+  .membership-table th{font-size:0.54rem;padding:0 0.7rem 0.75rem;letter-spacing:0.09em}
+  .membership-table td{padding:0.75rem 0.7rem;font-size:0.77rem}
+  .price-val{font-size:1rem}
+  .membership-notes{flex-direction:column;gap:0.9rem}
+  .membership-cta-row{flex-direction:column;gap:0.6rem}
+  .btn-rose,.btn-outline-white{width:100%;text-align:center;padding:0.82rem}
+
+  /* CONTACT */
+  .contact-page{padding:4.5rem 0 2.5rem}
+  .contact-grid{grid-template-columns:1fr;gap:1.1rem;margin-top:1.8rem}
+  .contact-card{padding:1.6rem}
+  .contact-card-title{font-size:1.45rem}
+  .contact-card-desc{font-size:0.77rem}
+  .contact-card-btn{width:100%;text-align:center;padding:0.78rem}
+  .contact-info-row{grid-template-columns:1fr;gap:1.4rem;margin-top:2rem;padding-top:1.8rem}
+  .info-value{font-size:0.81rem}
+
+  /* LOCATION */
+  .location-page{padding:4.5rem 0 2.5rem}
+  .location-inner{grid-template-columns:1fr;gap:1.8rem;margin-top:1.8rem}
+  .map-frame{height:250px}
+  .detail-label{width:68px;font-size:0.57rem}
+  .detail-value{font-size:0.81rem}
+  .location-actions{flex-direction:column;gap:0.55rem}
+  .location-actions a{width:100%;text-align:center;padding:0.82rem;box-sizing:border-box}
+  .testimonials-mini{margin-top:2.2rem;padding-top:1.8rem}
+  .testimonials-mini h3{font-size:1.45rem;margin-bottom:1.3rem}
+  .testimonials-grid{grid-template-columns:1fr;gap:1.3rem}
+  .t-quote{font-size:0.9rem}
+  .t-author{font-size:0.62rem}
+
+  /* FOOTER */
+  .site-footer{padding:2.2rem 0 1.2rem}
+  .footer-inner{grid-template-columns:1fr;gap:1.4rem;margin-bottom:1.4rem}
+  .footer-brand{font-size:1.45rem}
+  .footer-bottom{flex-direction:column;text-align:center;padding-right:0;padding-bottom:8rem;gap:0.7rem}
+  .social-links{justify-content:center;flex-wrap:wrap;gap:0.75rem}
+  .footer-copy{font-size:0.62rem}
+
+  /* FABS: smaller, won't cover footer content */
+  .fab-group{bottom:0.6rem;right:0.6rem;gap:0.38rem}
+  .fab{font-size:0.59rem;padding:0.48rem 0.78rem;gap:0.38rem;letter-spacing:0.09em}
+
+  /* SHARED */
+  .section-title{font-size:1.85rem;margin-bottom:0.9rem}
+  .section-label{font-size:0.58rem;letter-spacing:0.2em}
+  .container{padding:0 1rem}
+  .btn-primary,.btn-outline{width:100%;text-align:center;padding:0.82rem}
+}
+</style>
+</head>
+<body>
+
+<div class="fab-group">
+  <button class="fab fab-rose" onclick="showPage('contact')">📅 Reservar clase</button>
+  <a href="https://www.instagram.com/lovstudioo?igsh=MWNmc3A1YTF1bnpvYg==" target="_blank" class="fab fab-black">📸 Instagram</a>
+  <button class="fab fab-white" onclick="showPage('location')">📍 Ubicación</button>
+</div>
+
+<nav>
+  <span class="nav-logo" onclick="showPage('home')" style="cursor:pointer">Lov Studio</span>
+  <ul class="nav-links">
+    <li><button onclick="showPage('home')" id="nav-home" class="active">Inicio</button></li>
+    <li><button onclick="showPage('schedule')" id="nav-schedule">Horarios</button></li>
+    <li><button onclick="showPage('classes')" id="nav-classes">Clases</button></li>
+    <li><button onclick="showPage('membership')" id="nav-membership">Membresías</button></li>
+    <li><button onclick="showPage('location')" id="nav-location">Ubicación</button></li>
+    <li><button onclick="showPage('contact')" id="nav-contact" class="nav-cta-btn">Reservar</button></li>
+  </ul>
+</nav>
+
+<div class="page active" id="page-home">
+  <section class="hero">
+    <p class="hero-eyebrow">Mat Pilates · Barre · Aerial Yoga · Ballet · Bellydance · Ritmos Latinos</p>
+    <h1 class="hero-title">Transfórmate en<br><em>arte.</em></h1>
+    <p class="hero-sub">Un espacio de movimiento consciente en Jonacatepec, Morelos.<br>Para todas las edades y niveles.</p>
+    <div class="hero-actions">
+      <button class="hero-btn-primary" onclick="showPage('contact')">Reservar clase</button>
+      <button class="hero-btn-ghost" onclick="showPage('schedule')">VER HORARIOS</button>
+      <button class="hero-btn-ghost" onclick="showPage('classes')">Nuestras clases</button>
+    </div>
+    <div class="hero-scroll"><span>Descubrir</span><div class="scroll-line"></div></div>
+  </section>
+
+  <div class="quick-links">
+    <div class="quick-links-inner">
+      <button class="ql-item" onclick="showPage('contact')"><span class="ql-icon">📅</span><span class="ql-label">Reservar clase</span></button>
+      <button class="ql-item" onclick="showPage('contact')"><span class="ql-icon">🌟</span><span class="ql-label">Unirme al estudio</span></button>
+      <button class="ql-item" onclick="showPage('contact')"><span class="ql-icon">🚪</span><span class="ql-label">Clase de visita</span></button>
+      <button class="ql-item" onclick="showPage('schedule')"><span class="ql-icon">🗓</span><span class="ql-label">Horario semanal</span></button>
+      <button class="ql-item" onclick="showPage('membership')"><span class="ql-icon">💎</span><span class="ql-label">Membresías</span></button>
+      <button class="ql-item" onclick="showPage('location')"><span class="ql-icon">📍</span><span class="ql-label">Cómo llegar</span></button>
+    </div>
+  </div>
+
+  <section class="philosophy">
+    <div class="container">
+      <div class="philosophy-inner">
+        <div class="philosophy-text reveal">
+          <p class="section-label">Nuestra filosofía</p>
+          <h2>El cuerpo como<br><em>punto de partida.</em></h2>
+          <p>En Lov Studio creemos que el movimiento es un lenguaje. Cada clase está diseñada para conectarte con tu cuerpo de forma profunda — no solo para fortalecerlo, sino para reconectar contigo misma.</p>
+          <p>Seis disciplinas, un mismo propósito: que salgas de cada clase sintiéndote más tú.</p>
+          <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap">
+            <button class="btn-primary" onclick="showPage('classes')">Explorar clases</button>
+            <a href="https://www.tiktok.com/@lovstudioo?_r=1&_t=zs-94zk27oygyc" target="_blank" class="btn-outline">NUESTRO TIKTOK</a>
+          </div>
+        </div>
+        <div class="philosophy-visual reveal">
+          <div class="phil-card phil-card-1">
+            <p class="phil-card-label">Comunidad Activa</p>
+            <div class="phil-num">∞</div>
+            <div class="phil-card-title">Unida</div>
+            <p class="phil-card-desc">Una comunidad que se apoya y crece junta.</p>
+          </div>
+          <div class="phil-card phil-card-2">
+            <p class="phil-card-label">Disciplinas</p>
+            <div class="phil-num">6</div>
+            <div class="phil-card-title">Estilos</div>
+            <p class="phil-card-desc">Hay un lugar para cada cuerpo y cada persona.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee-strip">
+    <div class="marquee-inner">
+      <div class="marquee-item"><span>Mat Pilates</span><div class="marquee-dot"></div></div>
+      <div class="marquee-item"><span>Barre</span><div class="marquee-dot"></div></div>
+      <div class="marquee-item"><span>Aerial Yoga</span><div class="marquee-dot"></div></div>
+      <div class="marquee-item"><span>Ballet</span><div class="marquee-dot"></div></div>
+      <div class="marquee-item"><span>Danza Árabe</span><div class="marquee-dot"></div></div>
+      <div class="marquee-item"><span>Ritmos Latinos</span><div class="marquee-dot"></div></div>
+      <div class="marquee-item"><span>Jonacatepec · Morelos</span><div class="marquee-dot"></div></div>
+      <div class="marquee-item"><span>Mat Pilates</span><div class="marquee-dot"></div></div>
+      <div class="marquee-item"><span>Barre</span><div class="marquee-dot"></div></div>
+      <div class="marquee-item"><span>Aerial Yoga</span><div class="marquee-dot"></div></div>
+      <div class="marquee-item"><span>Ballet</span><div class="marquee-dot"></div></div>
+      <div class="marquee-item"><span>Danza Árabe</span><div class="marquee-dot"></div></div>
+      <div class="marquee-item"><span>Ritmos Latinos</span><div class="marquee-dot"></div></div>
+      <div class="marquee-item"><span>Jonacatepec · Morelos</span><div class="marquee-dot"></div></div>
+    </div>
+  </div>
+
+  <section class="home-cta">
+    <div class="container reveal">
+      <h2>Tu primera clase<br>te espera.</h2>
+      <p>Sin experiencia previa · Sin compromiso · Solo movimiento</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+        <button class="btn-white" onclick="showPage('contact')">Reservar ahora →</button>
+        <button onclick="showPage('membership')" style="display:inline-block;padding:0.9rem 2.2rem;border:2px solid rgba(253,250,247,0.35);color:var(--white);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;background:none;border-radius:2px;cursor:pointer;font-family:'Inter',sans-serif;transition:border-color 0.3s" onmouseover="this.style.borderColor='white'" onmouseout="this.style.borderColor='rgba(253,250,247,0.35)'">Ver membresías</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand">Lov Studio</div>
+          <p class="footer-tagline">Movimiento consciente en Jonacatepec, Morelos. Para todas las edades y niveles.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Clases</h4>
+          <ul>
+            <li><button onclick="showPage('classes')">Mat Pilates</button></li>
+            <li><button onclick="showPage('classes')">Barre</button></li>
+            <li><button onclick="showPage('classes')">Aerial Yoga</button></li>
+            <li><button onclick="showPage('classes')">Ballet</button></li>
+            <li><button onclick="showPage('classes')">Danza Árabe</button></li>
+            <li><button onclick="showPage('classes')">Ritmos Latinos</button></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Estudio</h4>
+          <ul>
+            <li><button onclick="showPage('schedule')">Horarios</button></li>
+            <li><button onclick="showPage('membership')">Membresías</button></li>
+            <li><button onclick="showPage('location')">Ubicación</button></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Reservar</h4>
+          <ul>
+            <li><button onclick="showPage('contact')">Reservar clase</button></li>
+            <li><button onclick="showPage('contact')">Unirme al estudio</button></li>
+            <li><button onclick="showPage('contact')">Clase de visita</button></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Lov Studio · Jonacatepec, Morelos</p>
+        <div class="social-links">
+          <a href="https://www.facebook.com/share/1DRgCFe1XA/?mibextid=wwXIfr" target="_blank">Facebook</a>
+          <a href="https://www.instagram.com/lovstudioo?igsh=MWNmc3A1YTF1bnpvYg==" target="_blank">Instagram</a>
+          <a href="https://www.tiktok.com/@lovstudioo?_r=1&_t=zs-94zk27oygyc" target="_blank">TikTok</a>
+          <a href="https://open.spotify.com/user/31l656xnpwnwzur65zkclo7liyty?si=4fZUgAVnQ_SShc-Ox7FGUw" target="_blank">Spotify</a>
+          <a href="https://wa.me/525544515075" target="_blank">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div><div class="page" id="page-schedule">
+  <div class="schedule-page">
+    <div class="container">
+      <div class="schedule-intro reveal">
+        <p class="section-label">Horarios</p>
+        <h2 class="section-title">Encuentra tu<br><em>clase perfecta.</em></h2>
+        <p style="color:#6B5E58;font-size:0.9rem;max-width:500px">Elige el día, la hora y el estilo que mejor se adapte a tu agenda. Todos los niveles bienvenidos.</p>
+      </div>
+
+      <div class="week-grid reveal">
+        <div class="day-col">
+          <div class="day-header"><div class="day-name">Lunes</div><div class="day-short">Lun</div></div>
+          <div class="day-classes">
+            <div class="class-slot cs-ballet"><div class="cs-time">4:00 pm - 5:00 pm</div><div class="cs-name">Baby Ballet</div><div class="cs-level">Infantil</div></div>
+            <div class="class-slot cs-ballet"><div class="cs-time">5:00 pm - 6:00 pm</div><div class="cs-name">Ballet</div><div class="cs-level">Todos los niveles</div></div>
+            <div class="class-slot cs-aerial"><div class="cs-time">6:00 pm - 7:00 pm</div><div class="cs-name">Aerial Yoga</div><div class="cs-level">Todos los niveles</div></div>
+            <div class="class-slot cs-pilates"><div class="cs-time">7:00 pm - 8:00 pm</div><div class="cs-name">Mat Pilates</div><div class="cs-level">Todos los niveles</div></div>
+          </div>
+        </div>
+        <div class="day-col">
+          <div class="day-header"><div class="day-name">Martes</div><div class="day-short">Mar</div></div>
+          <div class="day-classes">
+            <div class="class-slot cs-aerial"><div class="cs-time">4:00 pm - 5:00 pm</div><div class="cs-name">Aerial Kids</div><div class="cs-level">Infantil</div></div>
+            <div class="class-slot cs-bellydance"><div class="cs-time">5:00 pm - 6:00 pm</div><div class="cs-name">Danza Árabe</div><div class="cs-level">Todos los niveles</div></div>
+            <div class="class-slot cs-barre"><div class="cs-time">6:00 pm - 7:00 pm</div><div class="cs-name">Barre</div><div class="cs-level">Todos los niveles</div></div>
+            <div class="class-slot cs-latinos"><div class="cs-time">7:00 pm - 9:00 pm</div><div class="cs-name">Ritmos Latinos</div><div class="cs-level">Todos los niveles</div></div>
+          </div>
+        </div>
+        <div class="day-col">
+          <div class="day-header"><div class="day-name">Miércoles</div><div class="day-short">Mié</div></div>
+          <div class="day-classes">
+            <div class="class-slot cs-ballet"><div class="cs-time">4:00 pm - 5:00 pm</div><div class="cs-name">Baby Ballet</div><div class="cs-level">Infantil</div></div>
+            <div class="class-slot cs-ballet"><div class="cs-time">5:00 pm - 6:00 pm</div><div class="cs-name">Ballet</div><div class="cs-level">Todos los niveles</div></div>
+            <div class="class-slot cs-aerial"><div class="cs-time">6:00 pm - 7:00 pm</div><div class="cs-name">Aerial Yoga</div><div class="cs-level">Todos los niveles</div></div>
+            <div class="class-slot cs-pilates"><div class="cs-time">7:00 pm - 8:00 pm</div><div class="cs-name">Mat Pilates</div><div class="cs-level">Todos los niveles</div></div>
+          </div>
+        </div>
+        <div class="day-col">
+          <div class="day-header"><div class="day-name">Jueves</div><div class="day-short">Jue</div></div>
+          <div class="day-classes">
+            <div class="class-slot cs-aerial"><div class="cs-time">4:00 pm - 5:00 pm</div><div class="cs-name">Aerial Kids</div><div class="cs-level">Infantil</div></div>
+            <div class="class-slot cs-bellydance"><div class="cs-time">5:00 pm - 6:00 pm</div><div class="cs-name">Danza Árabe</div><div class="cs-level">Todos los niveles</div></div>
+            <div class="class-slot cs-barre"><div class="cs-time">6:00 pm - 7:00 pm</div><div class="cs-name">Barre</div><div class="cs-level">Todos los niveles</div></div>
+            <div class="class-slot cs-latinos"><div class="cs-time">7:00 pm - 9:00 pm</div><div class="cs-name">Ritmos Latinos</div><div class="cs-level">Todos los niveles</div></div>
+          </div>
+        </div>
+        <div class="day-col">
+          <div class="day-header"><div class="day-name">Viernes</div><div class="day-short">Vie</div></div>
+          <div class="day-classes">
+          </div>
+        </div>
+        <div class="day-col">
+          <div class="day-header"><div class="day-name">Sábado</div><div class="day-short">Sáb</div></div>
+          <div class="day-classes">
+            <div class="class-slot cs-barre"><div class="cs-time">10:00 am - 11:00 am</div><div class="cs-name">Barre</div><div class="cs-level">Todos los niveles</div></div>
+            <div class="class-slot cs-pilates"><div class="cs-time">11:00 am - 12:00 pm</div><div class="cs-name">Mat Pilates</div><div class="cs-level">Todos los niveles</div></div>
+            <div class="class-slot cs-latinos"><div class="cs-time">2:00 pm - 4:00 pm</div><div class="cs-name">Ritmos Latinos</div><div class="cs-level">Todos los niveles</div></div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="schedule-note-box reveal">
+        ℹ️ Los horarios pueden llegar a variar. Síguenos en Instagram <a href="https://www.instagram.com/lovstudioo?igsh=MWNmc3A1YTF1bnpvYg==" target="_blank" style="color:var(--rose); font-weight:bold; text-decoration:none;">@lovstudioo</a> para actualizaciones o escríbenos por <a href="https://wa.me/525544515075" target="_blank" style="color:var(--rose); font-weight:bold; text-decoration:none;">WhatsApp</a>.
+      </div>
+
+      <div style="margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap" class="reveal">
+        <button class="btn-primary" onclick="showPage('contact')">Reservar una clase →</button>
+        <button class="btn-outline" onclick="showPage('classes')">Ver info de cada clase</button>
+      </div>
+    </div>
+  </div>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom"><p class="footer-copy">© 2026 Lov Studio · Jonacatepec, Morelos</p><div class="social-links"><a href="https://www.facebook.com/share/1DRgCFe1XA/?mibextid=wwXIfr" target="_blank">Facebook</a><a href="https://www.instagram.com/lovstudioo?igsh=MWNmc3A1YTF1bnpvYg==" target="_blank">Instagram</a><a href="https://www.tiktok.com/@lovstudioo?_r=1&_t=zs-94zk27oygyc" target="_blank">TikTok</a><a href="https://open.spotify.com/user/31l656xnpwnwzur65zkclo7liyty?si=4fZUgAVnQ_SShc-Ox7FGUw" target="_blank">Spotify</a><a href="https://wa.me/525544515075" target="_blank">WhatsApp</a></div></div></div></footer>
+</div>
+
+<div class="page" id="page-classes">
+  <div class="classes-page">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">Disciplinas</p>
+        <h2 class="section-title">Seis caminos.<br><em>Un propósito.</em></h2>
+      </div>
+      <div class="classes-grid">
+
+        <div class="class-card reveal">
+          <div class="class-hero-bar"><div class="class-hero-bg bg-pilates"></div><div class="class-num">01</div></div>
+          <div class="class-body">
+            <p class="class-tag">Control · Respiración · Core</p>
+            <h3 class="class-name">Mat Pilates</h3>
+            <p class="class-desc">Un método de acondicionamiento que trabaja el cuerpo de adentro hacia afuera. Activa músculos profundos, mejora la postura y transforma tu relación con tu cuerpo.</p>
+            <ul class="class-benefits">
+              <li>Fortalece el core y estabiliza la columna</li>
+              <li>Mejora la postura y oxigena tu cuerpo</li>
+              <li>Reduce el dolor de espalda</li>
+              <li>Aumenta la flexibilidad y movilidad</li>
+              <li>Para todas las edades y niveles</li>
+            </ul>
+            <div class="class-pricing-box">
+              <div class="pricing-label">Precios</div>
+              <div class="pricing-row"><span class="pricing-name">Clase individual</span><span class="pricing-amount">$130</span></div>
+              <div class="pricing-row"><span class="pricing-name">4 clases / mes</span><span class="pricing-amount">$500</span></div>
+              <div class="pricing-row"><span class="pricing-name">8 clases / mes</span><span class="pricing-amount">$1,000</span></div>
+            </div>
+            <div class="class-times-box">
+              <div class="times-label">Horarios regulares</div>
+              <div class="times-wrap">
+                <span class="time-badge">Lun 7:00 pm</span>
+                <span class="time-badge">Mié 7:00 pm</span>
+                <span class="time-badge">Sáb 11:00 am</span>
+              </div>
+            </div>
+
+            <a href="https://resolute-juniper-057.notion.site/34c8b385c5574664b41e5da49d16c87d?pvs=105" target="_blank" class="class-cta-btn" style="text-decoration:none; display:block;">Reservar Mat Pilates</a>
+          </div>
+        </div>
+
+        <div class="class-card reveal">
+          <div class="class-hero-bar"><div class="class-hero-bg bg-barre"></div><div class="class-num">02</div></div>
+          <div class="class-body">
+            <p class="class-tag">Tonificación · Gracia · Resistencia</p>
+            <h3 class="class-name">Barre</h3>
+            <p class="class-desc">Inspirado en ballet y entrenamiento funcional. Pequeños movimientos isométricos con grandes resultados: esculpe, alarga y fortalece sin impacto.</p>
+            <ul class="class-benefits">
+              <li>Esculpe y tonifica piernas, glúteos y abdomen</li>
+              <li>Mejora el equilibrio y la coordinación</li>
+              <li>Alarga la musculatura sin aumentar volumen</li>
+              <li>Sin impacto — ideal para lesiones</li>
+              <li>Quema calorías de forma eficiente</li>
+            </ul>
+            <div class="class-pricing-box">
+              <div class="pricing-label">Precios</div>
+              <div class="pricing-row"><span class="pricing-name">Clase individual</span><span class="pricing-amount">$120</span></div>
+              <div class="pricing-row"><span class="pricing-name">4 clases / mes</span><span class="pricing-amount">$450</span></div>
+              <div class="pricing-row"><span class="pricing-name">8 clases / mes</span><span class="pricing-amount">$900</span></div>
+            </div>
+            <div class="class-times-box">
+              <div class="times-label">Horarios regulares</div>
+              <div class="times-wrap">
+                <span class="time-badge">Mar 6:00 pm</span>
+                <span class="time-badge">Jue 6:00 pm</span>
+                <span class="time-badge">Sáb 10:00 am</span>
+              </div>
+            </div>
+
+            <a href="https://resolute-juniper-057.notion.site/34c8b385c5574664b41e5da49d16c87d?pvs=105" target="_blank" class="class-cta-btn" style="text-decoration:none; display:block;">Reservar Barre</a>
+          </div>
+        </div>
+
+        <div class="class-card reveal">
+          <div class="class-hero-bar"><div class="class-hero-bg bg-aerial"></div><div class="class-num">03</div></div>
+          <div class="class-body">
+            <p class="class-tag">Libertad · Flexibilidad · Vuelo</p>
+            <h3 class="class-name">Aerial Yoga</h3>
+            <p class="class-desc">Yoga en tela aérea. Combina posturas tradicionales con movimiento en el aire para lograr descompresión espinal y mayor flexibilidad.</p>
+            <ul class="class-benefits">
+              <li>Descompresión de la columna vertebral</li>
+              <li>Mejora la flexibilidad y movilidad articular</li>
+              <li>Fortalece el cuerpo usando el peso propio</li>
+              <li>Reduce el estrés y mejora el ánimo</li>
+              <li>Desarrolla confianza y equilibrio</li>
+            </ul>
+            <div class="class-pricing-box">
+              <div class="pricing-label">Precios</div>
+              <div class="pricing-row"><span class="pricing-name">Clase individual</span><span class="pricing-amount">$110</span></div>
+              <div class="pricing-row"><span class="pricing-name">4 clases / mes</span><span class="pricing-amount">$400</span></div>
+              <div class="pricing-row"><span class="pricing-name">8 clases / mes</span><span class="pricing-amount">$800</span></div>
+            </div>
+            <div class="class-times-box">
+              <div class="times-label">Horarios regulares</div>
+              <div class="times-wrap">
+                <span class="time-badge">Lun 6:00 pm</span>
+                <span class="time-badge">Mar 4:00 pm</span>
+                <span class="time-badge">Jue 4:00 pm</span>
+              </div>
+            </div>
+
+            <a href="https://resolute-juniper-057.notion.site/34c8b385c5574664b41e5da49d16c87d?pvs=105" target="_blank" class="class-cta-btn" style="text-decoration:none; display:block;">Reservar Aerial Yoga</a>
+          </div>
+        </div>
+
+        <div class="class-card reveal">
+          <div class="class-hero-bar"><div class="class-hero-bg bg-ballet"></div><div class="class-num">04</div></div>
+          <div class="class-body">
+            <p class="class-tag">Disciplina · Elegancia · Arte</p>
+            <h3 class="class-name">Ballet</h3>
+            <p class="class-desc">El arte del ballet adaptado para bebés, niños y adultos de todos los niveles. Aprende técnica, postura y movimiento con gracia — sin importar si nunca has bailado antes.</p>
+            <ul class="class-benefits">
+              <li>Desarrolla postura, gracia y elegancia</li>
+              <li>Fortalece piernas, pies y core</li>
+              <li>Mejora la coordinación y musicalidad</li>
+              <li>Construye disciplina y atención al detalle</li>
+              <li>Principiantes a intermedio bienvenidos</li>
+            </ul>
+            <div class="class-pricing-box">
+              <div class="pricing-label">Precios</div>
+              <div class="pricing-row"><span class="pricing-name">Clase individual</span><span class="pricing-amount">$85</span></div>
+              <div class="pricing-row"><span class="pricing-name">4 clases / mes</span><span class="pricing-amount">$320</span></div>
+              <div class="pricing-row"><span class="pricing-name">8 clases / mes</span><span class="pricing-amount">$600</span></div>
+            </div>
+            <div class="class-times-box">
+              <div class="times-label">Horarios regulares</div>
+              <div class="times-wrap">
+                <span class="time-badge">Lun 4:00 pm</span>
+                <span class="time-badge">Lun 5:00 pm</span>
+                <span class="time-badge">Mié 4:00 pm</span>
+                <span class="time-badge">Mié 5:00 pm</span>
+              </div>
+            </div>
+
+            <a href="https://resolute-juniper-057.notion.site/34c8b385c5574664b41e5da49d16c87d?pvs=105" target="_blank" class="class-cta-btn" style="text-decoration:none; display:block;">Reservar Ballet</a>
+          </div>
+        </div>
+
+        <div class="class-card reveal">
+          <div class="class-hero-bar"><div class="class-hero-bg bg-bellydance"></div><div class="class-num">05</div></div>
+          <div class="class-body">
+            <p class="class-tag">Expresión · Confianza · Feminidad</p>
+            <h3 class="class-name">Danza Árabe</h3>
+            <p class="class-desc">Una celebración del cuerpo femenino. Trabaja la musculatura profunda del abdomen, caderas y espalda mientras conecta con tu expresión más auténtica.</p>
+            <ul class="class-benefits">
+              <li>Fortalece abdomen, caderas y zona lumbar</li>
+              <li>Aumenta la confianza y expresión corporal</li>
+              <li>Mejora la coordinación y el ritmo</li>
+              <li>Sin impacto — apto para todos los cuerpos</li>
+              <li>Conecta con la feminidad y fluidez</li>
+            </ul>
+            <div class="class-pricing-box">
+              <div class="pricing-label">Precios</div>
+              <div class="pricing-row"><span class="pricing-name">Clase individual</span><span class="pricing-amount">$85</span></div>
+              <div class="pricing-row"><span class="pricing-name">4 clases / mes</span><span class="pricing-amount">$320</span></div>
+              <div class="pricing-row"><span class="pricing-name">8 clases / mes</span><span class="pricing-amount">$600</span></div>
+            </div>
+            <div class="class-times-box">
+              <div class="times-label">Horarios regulares</div>
+              <div class="times-wrap">
+                <span class="time-badge">Mar 5:00 pm</span>
+                <span class="time-badge">Jue 5:00 pm</span>
+              </div>
+            </div>
+
+            <a href="https://resolute-juniper-057.notion.site/34c8b385c5574664b41e5da49d16c87d?pvs=105" target="_blank" class="class-cta-btn" style="text-decoration:none; display:block;">Reservar Danza Árabe</a>
+          </div>
+        </div>
+
+        <div class="class-card reveal">
+          <div class="class-hero-bar"><div class="class-hero-bg bg-latinos"></div><div class="class-num">06</div></div>
+          <div class="class-body">
+            <p class="class-tag">Energía · Alegría · Comunidad</p>
+            <h3 class="class-name">Ritmos Latinos</h3>
+            <p class="class-desc">Salsa, Bachata y Cumbia en formato accesible y divertido. La clase más social del estudio — donde el ejercicio se convierte en celebración.</p>
+            <ul class="class-benefits">
+              <li>Cardio de bajo impacto con alta energía</li>
+              <li>Mejora la coordinación y el ritmo</li>
+              <li>Trabaja el cuerpo completo de forma divertida</li>
+              <li>Ideal para conocer personas y socializar</li>
+              <li>Sin experiencia previa requerida</li>
+            </ul>
+            <div class="class-pricing-box">
+              <div class="pricing-label">Precios</div>
+              <div class="pricing-row"><span class="pricing-name">Clase individual</span><span class="pricing-amount">$80</span></div>
+              <div class="pricing-row"><span class="pricing-name">4 clases / mes</span><span class="pricing-amount">$300</span></div>
+              <div class="pricing-row"><span class="pricing-name">8 clases / mes</span><span class="pricing-amount">$600</span></div>
+            </div>
+            <div class="class-times-box">
+              <div class="times-label">Horarios regulares</div>
+              <div class="times-wrap">
+                <span class="time-badge">Mar 7:00 pm</span>
+                <span class="time-badge">Jue 4:00 pm</span>
+                <span class="time-badge">Sáb 2:00 pm</span>
+              </div>
+            </div>
+
+            <a href="https://resolute-juniper-057.notion.site/34c8b385c5574664b41e5da49d16c87d?pvs=105" target="_blank" class="class-cta-btn" style="text-decoration:none; display:block;">Reservar Ritmos Latinos</a>
+          </div>
+        </div>
+
+      </div></div>
+  </div>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom"><p class="footer-copy">© 2026 Lov Studio · Jonacatepec, Morelos</p><div class="social-links"><a href="https://www.facebook.com/share/1DRgCFe1XA/?mibextid=wwXIfr" target="_blank">Facebook</a><a href="https://www.instagram.com/lovstudioo?igsh=MWNmc3A1YTF1bnpvYg==" target="_blank">Instagram</a><a href="https://www.tiktok.com/@lovstudioo?_r=1&_t=zs-94zk27oygyc" target="_blank">TikTok</a><a href="https://open.spotify.com/user/31l656xnpwnwzur65zkclo7liyty?si=4fZUgAVnQ_SShc-Ox7FGUw" target="_blank">Spotify</a><a href="https://wa.me/525544515075" target="_blank">WhatsApp</a></div></div></div></footer>
+</div>
+
+<div class="page" id="page-membership">
+  <div class="membership-page">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">Membresías y precios</p>
+        <h2 class="section-title">Elige cómo<br><em>moverte.</em></h2>
+        <p style="color:rgba(253,250,247,0.45);font-size:0.88rem;max-width:480px;margin-bottom:0">Sin contratos forzosos. Sin compromisos de permanencia. Cancela cuando quieras.</p>
+      </div>
+      <div style="overflow-x:auto" class="reveal">
+        <table class="membership-table">
+          <thead>
+            <tr>
+              <th>Disciplina</th>
+              <th>Clase individual</th>
+              <th>4 clases / mes</th>
+              <th>8 clases / mes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Mat Pilates</td><td><span class="price-val">$130</span></td><td><span class="price-val">$500<small>/mes</small></span></td><td><span class="price-val">$1,000<small>/mes</small></span></td></tr>
+            <tr><td>Barre</td><td><span class="price-val">$120</span></td><td><span class="price-val">$450<small>/mes</small></span></td><td><span class="price-val">$900<small>/mes</small></span></td></tr>
+            <tr><td>Aerial Yoga</td><td><span class="price-val">$110</span></td><td><span class="price-val">$400<small>/mes</small></span></td><td><span class="price-val">$800<small>/mes</small></span></td></tr>
+            <tr><td>Ballet</td><td><span class="price-val">$85</span></td><td><span class="price-val">$320<small>/mes</small></span></td><td><span class="price-val">$600<small>/mes</small></span></td></tr>
+            <tr><td>Danza Árabe</td><td><span class="price-val">$85</span></td><td><span class="price-val">$320<small>/mes</small></span></td><td><span class="price-val">$600<small>/mes</small></span></td></tr>
+            <tr><td>Ritmos Latinos</td><td><span class="price-val">$80</span></td><td><span class="price-val">$300<small>/mes</small></span></td><td><span class="price-val">$600<small>/mes</small></span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="membership-notes reveal">
+        <div class="mem-note"><div class="mem-note-icon">✨</div><div class="mem-note-title">Sin compromiso</div><div class="mem-note-text">Las membresías son mensuales. No hay contratos ni penalizaciones por cancelar.</div></div>
+        <div class="mem-note"><div class="mem-note-icon">🗓</div><div class="mem-note-title">Flexibilidad total</div><div class="mem-note-text">Usa tus clases cualquier día del mes. No hay horario fijo asignado.</div></div>
+        <div class="mem-note"><div class="mem-note-icon">🌟</div><div class="mem-note-title">Beneficios mensuales</div><div class="mem-note-text">Con tu membresía descubre beneficios mensuales.</div></div>
+      </div>
+      <div class="membership-cta-row reveal">
+        <a href="https://resolute-juniper-057.notion.site/64ff91b14e88462e8b3bb0e3d556575a?pvs=105" target="_blank" class="btn-rose">Unirme al estudio →</a>
+        <a href="https://www.instagram.com/lovstudioo?igsh=MWNmc3A1YTF1bnpvYg==" target="_blank" class="btn-outline-white">NUESTRO INSTAGRAM</a>
+      </div>
+    </div>
+  </div>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom"><p class="footer-copy">© 2026 Lov Studio · Jonacatepec, Morelos</p><div class="social-links"><a href="https://www.facebook.com/share/1DRgCFe1XA/?mibextid=wwXIfr" target="_blank">Facebook</a><a href="https://www.instagram.com/lovstudioo?igsh=MWNmc3A1YTF1bnpvYg==" target="_blank">Instagram</a><a href="https://www.tiktok.com/@lovstudioo?_r=1&_t=zs-94zk27oygyc" target="_blank">TikTok</a><a href="https://open.spotify.com/user/31l656xnpwnwzur65zkclo7liyty?si=4fZUgAVnQ_SShc-Ox7FGUw" target="_blank">Spotify</a><a href="https://wa.me/525544515075" target="_blank">WhatsApp</a></div></div></div></footer>
+</div>
+
+<div class="page" id="page-contact">
+  <div class="contact-page">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">Contáctanos</p>
+        <h2 class="section-title">¿Cómo podemos<br><em>ayudarte?</em></h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card reveal">
+          <div class="contact-card-icon">📅</div>
+          <div class="contact-card-label">Reservaciones</div>
+          <h3 class="contact-card-title">Reservar una clase</h3>
+          <p class="contact-card-desc">¿Ya eres alumna o quieres reservar tu lugar en una clase específica? Usa este formulario para asegurar tu espacio. Los cupos son limitados.</p>
+          <a href="https://resolute-juniper-057.notion.site/34c8b385c5574664b41e5da49d16c87d?pvs=105" target="_blank" class="contact-card-btn">Reservar clase →</a>
+        </div>
+        <div class="contact-card reveal">
+          <div class="contact-card-icon">🌟</div>
+          <div class="contact-card-label">Membresías</div>
+          <h3 class="contact-card-title">Unirme al estudio</h3>
+          <p class="contact-card-desc">¿Lista para comprometerte con tu práctica? Elige tu membresía y regístrate como miembro oficial de Lov Studio. Cancela cuando quieras.</p>
+          <a href="https://resolute-juniper-057.notion.site/64ff91b14e88462e8b3bb0e3d556575a?pvs=105" target="_blank" class="contact-card-btn">Unirme →</a>
+        </div>
+        <div class="contact-card reveal">
+          <div class="contact-card-icon">🚪</div>
+          <div class="contact-card-label">Primera visita</div>
+          <h3 class="contact-card-title">Clase de visita</h3>
+          <p class="contact-card-desc">¿Primera vez en Lov Studio? Ven a conocernos con una clase sin compromiso. No necesitas experiencia previa — solo ganas de moverte.</p>
+          <a href="https://resolute-juniper-057.notion.site/f6006988ad694e2eb0a3bebc0a261472?pvs=105" target="_blank" class="contact-card-btn">Agendar visita →</a>
+        </div>
+        <div class="contact-card reveal">
+          <div class="contact-card-icon">💭</div>
+          <div class="contact-card-label">Tu opinión importa</div>
+          <h3 class="contact-card-title">Sugiere una clase</h3>
+          <p class="contact-card-desc">¿Hay algún estilo de danza o fitness que te gustaría que ofrezcamos? Cuéntanos — las clases nuevas nacen de lo que ustedes piden.</p>
+          <a href="https://resolute-juniper-057.notion.site/bb91773193784fe7a60ac1d9a6d8f644?pvs=105" target="_blank" class="contact-card-btn contact-card-btn-outline">Sugerir →</a>
+        </div>
+      </div>
+      <div class="contact-info-row reveal">
+        <div class="info-item">
+          <div class="info-label">Dirección</div>
+          <div class="info-value">Aldama y Mártires 17<br>Plaza Emiliano Zapata, Centro<br>62930 Jonacatepec, Morelos</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Horarios</div>
+          <div class="info-value">Lunes - Viernes 4:00 pm - 9:00 pm<br>Sábados 9:00 am - 4:00 pm</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Redes y contacto</div>
+          <div class="info-value">
+            Instagram: <a href="https://www.instagram.com/lovstudioo?igsh=MWNmc3A1YTF1bnpvYg==" target="_blank" style="color:var(--rose)">@lovstudioo</a><br>
+            TikTok: <a href="https://www.tiktok.com/@lovstudioo?_r=1&_t=zs-94zk27oygyc" target="_blank" style="color:var(--rose)">@lovstudioo</a><br>
+            Facebook: <a href="https://www.facebook.com/share/1DRgCFe1XA/?mibextid=wwXIfr" target="_blank" style="color:var(--rose)">Lov Studio</a><br>
+            WhatsApp: <a href="https://wa.me/525544515075" target="_blank" style="color:var(--rose)">+52 55 4451 5075</a><br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom"><p class="footer-copy">© 2026 Lov Studio · Jonacatepec, Morelos</p><div class="social-links"><a href="https://www.facebook.com/share/1DRgCFe1XA/?mibextid=wwXIfr" target="_blank">Facebook</a><a href="https://www.instagram.com/lovstudioo?igsh=MWNmc3A1YTF1bnpvYg==" target="_blank">Instagram</a><a href="https://www.tiktok.com/@lovstudioo?_r=1&_t=zs-94zk27oygyc" target="_blank">TikTok</a><a href="https://open.spotify.com/user/31l656xnpwnwzur65zkclo7liyty?si=4fZUgAVnQ_SShc-Ox7FGUw" target="_blank">Spotify</a><a href="https://wa.me/525544515075" target="_blank">WhatsApp</a></div></div></div></footer>
+</div>
+
+<div class="page" id="page-location">
+  <div class="location-page">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">Encuéntranos</p>
+        <h2 class="section-title">Ven a<br><em>visitarnos.</em></h2>
+      </div>
+      <div class="location-inner">
+        <div class="reveal">
+          <div class="location-detail">
+            <span class="detail-label">Dirección</span>
+            <span class="detail-value">Aldama y Mártires 17<br>Plaza Emiliano Zapata, Centro<br>62930 Jonacatepec de Leandro Valle, Morelos</span>
+          </div>
+          <div class="location-detail">
+            <span class="detail-label">Horarios</span>
+            <span class="detail-value">Lunes - Viernes 4:00 pm - 9:00 pm<br>Sábados 9:00 am - 4:00 pm</span>
+          </div>
+          <div class="location-detail">
+            <span class="detail-label">Contacto</span>
+            <span class="detail-value">
+              Instagram: <a href="https://www.instagram.com/lovstudioo?igsh=MWNmc3A1YTF1bnpvYg==" target="_blank" style="color:var(--rose)">@lovstudioo</a><br>
+              TikTok: <a href="https://www.tiktok.com/@lovstudioo?_r=1&_t=zs-94zk27oygyc" target="_blank" style="color:var(--rose)">@lovstudioo</a><br>
+              Facebook: <a href="https://www.facebook.com/share/1DRgCFe1XA/?mibextid=wwXIfr" target="_blank" style="color:var(--rose)">Lov Studio</a><br>
+              WhatsApp: <a href="https://wa.me/525544515075" target="_blank" style="color:var(--rose)">+52 55 4451 5075</a>
+            </span>
+          </div>
+          <div class="location-actions">
+            <a href="https://maps.app.goo.gl/EF343WQrQH9sdFjZA" target="_blank" class="btn-primary">Abrir en Google Maps →</a>
+            <a href="https://resolute-juniper-057.notion.site/34c8b385c5574664b41e5da49d16c87d?pvs=105" target="_blank" class="btn-outline">Reservar clase</a>
+          </div>
+        </div>
+        <div class="reveal">
+          <iframe class="map-frame"
+            src="https://maps.app.goo.gl/EF343WQrQH9sdFjZA"
+            allowfullscreen="" loading="lazy">
+          </iframe>
+        </div>
+      </div>
+
+      <div class="testimonials-mini reveal">
+        <h3>"Lo que dicen nuestras estudiantes"</h3>
+        <div class="testimonials-grid">
+          <div class="testimonial">
+            <div class="t-stars"><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div></div>
+            <p class="t-quote">"La vibra es muy bonita, te hace sentir cómoda desde que llegas, y la coach es súper linda , motivadora, te explica todo desde un principio y te tiene mucha paciencia. Definitivamente es mi lugar seguro 🤍"</p>
+            <p class="t-author">— VANESSA RICO - AERIAL YOGA</p>
+          </div>
+          <div class="testimonial">
+            <div class="t-stars"><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div></div>
+            <p class="t-quote">"Recomiendo totalmente, la miss te hace sentir muy cómoda y te acompaña en todo el proceso, el ambiente es siempre de compañerismo y se promueve siempre el respeto, un 10/10"</p>
+            <p class="t-author">— QUETZALY BUENOSAIRES -- DANZA ÁRABE</p>
+          </div>
+          <div class="testimonial">
+            <div class="t-stars"><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div></div>
+            <p class="t-quote">"10/10 la clase de barre, buen servicio y atención"</p>
+            <p class="t-author">— ALMA RIVERA -- BARRE</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom"><p class="footer-copy">© 2026 Lov Studio · Jonacatepec, Morelos</p><div class="social-links"><a href="https://www.facebook.com/share/1DRgCFe1XA/?mibextid=wwXIfr" target="_blank">Facebook</a><a href="https://www.instagram.com/lovstudioo?igsh=MWNmc3A1YTF1bnpvYg==" target="_blank">Instagram</a><a href="https://www.tiktok.com/@lovstudioo?_r=1&_t=zs-94zk27oygyc" target="_blank">TikTok</a><a href="https://open.spotify.com/user/31l656xnpwnwzur65zkclo7liyty?si=4fZUgAVnQ_SShc-Ox7FGUw" target="_blank">Spotify</a><a href="https://wa.me/525544515075" target="_blank">WhatsApp</a></div></div></div></footer>
+</div>
+
+<script>
+const pages = ['home','schedule','classes','membership','contact','location'];
+
+function showPage(id) {
+  // Hide all pages
+  pages.forEach(p => {
+    document.getElementById('page-' + p).classList.remove('active');
+    const btn = document.getElementById('nav-' + p);
+    if (btn) btn.classList.remove('active');
+  });
+  // Show selected
+  const page = document.getElementById('page-' + id);
+  if (page) {
+    page.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Trigger reveals
+    setTimeout(triggerReveals, 100);
+  }
+  // Highlight nav
+  const navBtn = document.getElementById('nav-' + id);
+  if (navBtn) navBtn.classList.add('active');
+  // Update URL hash for sharing
+  window.location.hash = id;
+}
+
+// Reveal on scroll
+function triggerReveals() {
+  const reveals = document.querySelectorAll('.page.active .reveal:not(.visible)');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 70);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+}
+
+// Handle URL hash on load (e.g. lovstudio.html#classes)
+window.addEventListener('load', () => {
+  const hash = window.location.hash.replace('#','');
+  if (pages.includes(hash)) {
+    showPage(hash);
+  } else {
+    showPage('home');
+  }
+  triggerReveals();
+});
+
+// Smooth internal anchor clicks
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = a.getAttribute('href').replace('#','');
+    if (pages.includes(target)) {
+      e.preventDefault();
+      showPage(target);
+    }
+  });
+});
+</script>
+</body>
+</html>
