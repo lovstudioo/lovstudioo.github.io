@@ -166,7 +166,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .class-benefits{list-style:none;margin-bottom:1.5rem;display:flex;flex-direction:column;gap:0.45rem}
 .class-benefits li{font-size:0.78rem;color:#7A6A64;display:flex;align-items:flex-start;gap:0.6rem;line-height:1.5}
 .class-benefits li::before{content:'';display:inline-block;width:12px;height:1px;background:var(--rose);margin-top:0.55rem;flex-shrink:0}
-.class-pricing-box{background:var(--cream);padding:1rem 1.2rem;border-radius:2px;margin-bottom:1.3rem}
+.class-pricing-box{background:var(--cream);padding:1rem 1.2rem;border-radius:2px;margin-bottom:1.3rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .pricing-label{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);margin-bottom:0.5rem}
 .pricing-row{display:flex;justify-content:space-between;align-items:center;padding:0.28rem 0;border-bottom:1px solid var(--rose-lt)}
 .pricing-row:last-child{border-bottom:none}
@@ -299,8 +299,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
   .contact-info-row{grid-template-columns:1fr}
   .ql-item{flex:1 1 33%}
   .fab-group{bottom:0.8rem;right:0.8rem}
-  .membership-table th:not(:first-child):not(:last-child){display:none}
-  .membership-table td:not(:first-child):not(:last-child){display:none}
 }
 /* ── MOBILE ≤480px ── */
 @media(max-width:480px){
@@ -450,8 +448,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 <div class="page active" id="page-home">
   <section class="hero">
     <p class="hero-eyebrow">Mat Pilates · Barre · Aerial Yoga · Ballet · Bellydance · Ritmos Latinos</p>
-    <h1 class="hero-title">Transfórmate en<br><em>arte.</em></h1>
-    <p class="hero-sub">Un espacio de movimiento consciente en Jonacatepec, Morelos.<br>Para todas las edades y niveles.</p>
+    <h1 class="hero-title">Transfórmate en arte.</em></h1>
+    <p class="hero-sub">Un espacio de movimiento consciente.<br>Para todas las edades y niveles.</p>
     <div class="hero-actions">
       <button class="hero-btn-primary" onclick="showPage('contact')">Reservar clase</button>
       <button class="hero-btn-ghost" onclick="showPage('schedule')">VER HORARIOS</button>
@@ -476,7 +474,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
       <div class="philosophy-inner">
         <div class="philosophy-text reveal">
           <p class="section-label">Nuestra filosofía</p>
-          <h2>El cuerpo como<br><em>punto de partida.</em></h2>
+          <h2>El movimiento<br><em>como arte.</em></h2>
           <p>En Lov Studio creemos que el movimiento es un lenguaje. Cada clase está diseñada para conectarte con tu cuerpo de forma profunda — no solo para fortalecerlo, sino para reconectar contigo misma.</p>
           <p>Seis disciplinas, un mismo propósito: que salgas de cada clase sintiéndote más tú.</p>
           <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap">
@@ -488,7 +486,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
           <div class="phil-card phil-card-1">
             <p class="phil-card-label">Comunidad Activa</p>
             <div class="phil-num">∞</div>
-            <div class="phil-card-title">Unida</div>
+            <div class="phil-card-title">Unidas</div>
             <p class="phil-card-desc">Una comunidad que se apoya y crece junta.</p>
           </div>
           <div class="phil-card phil-card-2">
@@ -510,14 +508,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
       <div class="marquee-item"><span>Ballet</span><div class="marquee-dot"></div></div>
       <div class="marquee-item"><span>Danza Árabe</span><div class="marquee-dot"></div></div>
       <div class="marquee-item"><span>Ritmos Latinos</span><div class="marquee-dot"></div></div>
-      <div class="marquee-item"><span>Jonacatepec · Morelos</span><div class="marquee-dot"></div></div>
       <div class="marquee-item"><span>Mat Pilates</span><div class="marquee-dot"></div></div>
       <div class="marquee-item"><span>Barre</span><div class="marquee-dot"></div></div>
       <div class="marquee-item"><span>Aerial Yoga</span><div class="marquee-dot"></div></div>
       <div class="marquee-item"><span>Ballet</span><div class="marquee-dot"></div></div>
       <div class="marquee-item"><span>Danza Árabe</span><div class="marquee-dot"></div></div>
       <div class="marquee-item"><span>Ritmos Latinos</span><div class="marquee-dot"></div></div>
-      <div class="marquee-item"><span>Jonacatepec · Morelos</span><div class="marquee-dot"></div></div>
     </div>
   </div>
 
@@ -537,7 +533,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
       <div class="footer-inner">
         <div>
           <div class="footer-brand">Lov Studio</div>
-          <p class="footer-tagline">Movimiento consciente en Jonacatepec, Morelos. Para todas las edades y niveles.</p>
+          <p class="footer-tagline">Movimiento consciente para todas las edades y niveles.</p>
         </div>
         <div class="footer-col">
           <h4>Clases</h4>
@@ -585,7 +581,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
       <div class="schedule-intro reveal">
         <p class="section-label">Horarios</p>
         <h2 class="section-title">Encuentra tu<br><em>clase perfecta.</em></h2>
-        <p style="color:#6B5E58;font-size:0.9rem;max-width:500px">Elige el día, la hora y el estilo que mejor se adapte a tu agenda. Todos los niveles bienvenidos.</p>
+        <p style="color:#6B5E58;font-size:0.9rem;max-width:500px">Elige el día, la hora y el estilo que mejor se adapte a tu agenda.<br><em></em>Todos los niveles bienvenidos.</p>
       </div>
 
       <div class="week-grid reveal">
@@ -751,6 +747,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
               <div class="times-label">Horarios regulares</div>
               <div class="times-wrap">
                 <span class="time-badge">Lun 6:00 pm</span>
+                <span class="time-badge">Mié 6:00 pm</span>
                 <span class="time-badge">Mar 4:00 pm</span>
                 <span class="time-badge">Jue 4:00 pm</span>
               </div>
@@ -847,7 +844,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
               <div class="times-label">Horarios regulares</div>
               <div class="times-wrap">
                 <span class="time-badge">Mar 7:00 pm</span>
-                <span class="time-badge">Jue 4:00 pm</span>
+                <span class="time-badge">Jue 7:00 pm</span>
                 <span class="time-badge">Sáb 2:00 pm</span>
               </div>
             </div>
@@ -867,9 +864,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
       <div class="reveal">
         <p class="section-label">Membresías y precios</p>
         <h2 class="section-title">Elige cómo<br><em>moverte.</em></h2>
-        <p style="color:rgba(253,250,247,0.45);font-size:0.88rem;max-width:480px;margin-bottom:0">Sin contratos forzosos. Sin compromisos de permanencia. Cancela cuando quieras.</p>
+        <p style="color:rgba(253,250,247,0.45);font-size:0.88rem;max-width:480px;margin-bottom:0">Sin contratos forzosos. Sin compromisos de permanencia.<br><em></em>Cancela cuando quieras.</p>
       </div>
-      <div style="overflow-x:auto" class="reveal">
+      <div style="overflow-x:auto; display:block; width:100%; -webkit-overflow-scrolling:touch;" class="reveal">
         <table class="membership-table">
           <thead>
             <tr>
@@ -995,14 +992,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
             <a href="https://resolute-juniper-057.notion.site/34c8b385c5574664b41e5da49d16c87d?pvs=105" target="_blank" class="btn-outline">Reservar clase</a>
           </div>
         </div>
-        <div class="reveal">
-          <iframe class="map-frame"
-            src="https://maps.app.goo.gl/EF343WQrQH9sdFjZA"
-            allowfullscreen="" loading="lazy">
-          </iframe>
-        </div>
       </div>
-
       <div class="testimonials-mini reveal">
         <h3>"Lo que dicen nuestras estudiantes"</h3>
         <div class="testimonials-grid">
